@@ -1,0 +1,38 @@
+- name: Create directory for v2ray
+  file:
+    path: "{{ v2ray_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Template config files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ v2ray_dir }}/{{ item.dest }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  loop:
+    - { src: docker-compose.yml.j2 , dest: docker-compose.yml }
+    - { src: server-config.json.j2 , dest: server-config.json }
+    - { src: client-config.json.j2 , dest: client-config.json }
+  
+- name: Fetch clien-config file
+  fetch:
+    src: "{{ v2ray_dir }}/client-config.json"
+    dest: fetched/{{ inventory_hostname }}/
+    flat: true
+
+- name: Stop docker-compose of v2ray-server
+  docker_compose:
+    project_src: "{{ v2ray_dir }}"
+    state: absent
+
+- name: Run docker-compose of v2ray-server
+  docker_compose:
+    project_src: "{{ v2ray_dir }}"
+    restarted: true
+  register: output
+
+- debug:
+    var: output

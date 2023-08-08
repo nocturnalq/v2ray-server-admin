@@ -1,0 +1,49 @@
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - "{{ docker_dependencies }}"
+
+- name: Add GPG key
+  apt_key:
+    url: "{{ docker_apt_key }}"
+    state: present
+
+- name: Add docker registry
+  apt_repository:
+    repo: "{{ docker_repo }}"
+    state: present
+
+- name: Update apt and install docker-ce 
+  apt:
+    update_cache: yes
+    name: docker-ce
+    state: latest
+
+- name: Make sure docker is active
+  service: 
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add remote user to "docker" group
+  user:
+    name: "{{ ansible_user }}"
+    groups:
+      - docker
+    append: yes
+
+- name: Install Docker and Docker-compose Modules for python
+  pip:
+    name: "{{ item }}"
+  loop:
+    - "{{ docker_pip_deps }}"
+
+- name: Install docker-compose
+  get_url:
+    url: "{{ docker_compose_link }}"
+    dest: /usr/local/bin/docker-compose
+    mode: '+x'
+

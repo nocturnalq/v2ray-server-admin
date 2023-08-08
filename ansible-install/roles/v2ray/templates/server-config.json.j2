@@ -1,0 +1,13 @@
+{
+    "inbounds": [{
+      "port": {{ inbounds.port }}, // Port of the server. Должен быть таким же, как упомянутый выше.
+      "protocol": "{{ inbounds.protocol }}",
+      "settings": {
+        "clients": [{ "id": "{{ inbounds.settings.clients.id }}" }]
+      }
+    }],
+    "outbounds": [{
+      "protocol": "{{ outbounds.protocol }}",
+      "settings": {}
+    }]
+  }
