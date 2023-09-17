@@ -23,15 +23,24 @@
     dest: fetched/{{ inventory_hostname }}/
     flat: true
 
-- name: Stop docker-compose of v2ray-server
-  docker_compose:
-    project_src: "{{ v2ray_dir }}"
-    state: absent
+- name: "Run docker-compose of v2ray-server"
+  command:
+    chdir: "{{ v2ray_dir }}"
+    cmd: docker compose down
+  register: output
 
-- name: Run docker-compose of v2ray-server
-  docker_compose:
-    project_src: "{{ v2ray_dir }}"
-    restarted: true
+- debug:
+    var: output
+
+- name: "Update image of v2ray-server"
+  command:
+    chdir: "{{ v2ray_dir }}"
+    cmd: docker compose pull
+
+- name: "Run docker-compose of v2ray-server"
+  command:
+    chdir: "{{ v2ray_dir }}"
+    cmd: docker compose up -d
   register: output
 
 - debug:

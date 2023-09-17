@@ -1,9 +1,13 @@
 {
     "inbounds": [{
-      "port": {{ inbounds.port }}, // Port of the server. Должен быть таким же, как упомянутый выше.
+      "port": {{ inbounds.port }},
       "protocol": "{{ inbounds.protocol }}",
       "settings": {
-        "clients": [{ "id": "{{ inbounds.settings.clients.id }}" }]
+        "clients": [
+          {% for client in inbounds.settings.clients %}
+          {"id": "{{ client.id }}"}{{ "," if not loop.last else "" }}
+          {% endfor %}
+        ]
       }
     }],
     "outbounds": [{

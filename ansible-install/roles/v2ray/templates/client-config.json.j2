@@ -1,6 +1,6 @@
 {
     "inbounds": [{
-      "port": 1080,  // Port of socks5 proxy. Настройте браузер на использование этого порта.
+      "port": 1080,
       "listen": "127.0.0.1",
       "protocol": "socks",
       "settings": {
@@ -11,10 +11,13 @@
       "protocol": "{{ inbounds.protocol }}",
       "settings": {
         "vnext": [{
-          "address": "{{ groups['vps'][0] }}", // Address of your V2Ray server. Может быть IP или доменным именем.
-          "port": {{ inbounds.port }},  // Порт сервера V2Ray.
-          "users": [{ "id": "{{ inbounds.settings.clients.id }}" }]
-        }]
+          "address": "{{ groups['vps'][0] }}",
+          "port": {{ inbounds.port }},
+          "users": [
+            {% for client in inbounds.settings.clients %}
+            {"id": "{{ client.id }}"}{{ "," if not loop.last else "" }}
+            {% endfor %}
+        ]
       }
     },{
       "protocol": "{{ outbounds.protocol }}",
