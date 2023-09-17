@@ -11,16 +11,22 @@
     url: "{{ docker_apt_key }}"
     state: present
 
+- name: Get version codename
+  register: codename
+  shell: ". /etc/os-release && echo \"$VERSION_CODENAME\""
+
 - name: Add docker registry
   apt_repository:
-    repo: "{{ docker_repo }}"
+    repo: "deb {{ docker_repo }} {{ codename.stdout }} stable"
     state: present
 
 - name: Update apt and install docker-ce 
   apt:
     update_cache: yes
-    name: docker-ce
+    name: "{{ item }}"
     state: latest
+  loop:
+    - "{{ docker_components }}"
 
 - name: Make sure docker is active
   service: 
@@ -34,16 +40,3 @@
     groups:
       - docker
     append: yes
-
-- name: Install Docker and Docker-compose Modules for python
-  pip:
-    name: "{{ item }}"
-  loop:
-    - "{{ docker_pip_deps }}"
-
-- name: Install docker-compose
-  get_url:
-    url: "{{ docker_compose_link }}"
-    dest: /usr/local/bin/docker-compose
-    mode: '+x'
-
