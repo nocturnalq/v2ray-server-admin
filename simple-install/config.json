@@ -1,13 +1,13 @@
 {
-    "inbounds": [{
-      "port": 10086, // Port of the server. Должен быть таким же, как упомянутый выше.
+  "inbounds": [{
+      "port": 16969,
       "protocol": "vmess",
       "settings": {
-        "clients": [{ "id": "b831381d-6324-4d53-ad4f-8cda48b30811" }]
+        "clients": [{ "id": "a1b60cf1-06ff-428a-8acb-a01a449d53d6" }]
       }
     }],
-    "outbounds": [{
+  "outbounds": [{
       "protocol": "freedom",
       "settings": {}
-    }]
-  }
+  }]
+}
