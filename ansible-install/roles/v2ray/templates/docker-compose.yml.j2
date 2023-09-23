@@ -27,8 +27,8 @@ services:
       - 67
       - 80
       - 443
-    environment:
-      ServerIP: 10.77.10.7
+    ports:
+      - 80:80
     env_file:
       - ./pihole.env
     volumes:
