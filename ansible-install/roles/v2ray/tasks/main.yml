@@ -36,8 +36,7 @@
     dest: "{{ v2ray_dir }}/client-config-{{ item.alterId }}.json"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-  loop:
-    - "{{ inbounds.settings.clients }}"
+  loop: "{{ inbounds.settings.clients }}"
 
 - name: Fetch client-config files
   fetch:
