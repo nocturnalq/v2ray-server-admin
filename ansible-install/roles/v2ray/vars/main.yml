@@ -8,11 +8,11 @@ inbounds:
   settings:
     clients:
       - id: 27848739-7e62-4138-9fd3-098a63964b6b
-        alterid: 0
+        alterId: 0
       - id: 9da19484-45db-4b21-9535-79ed36862d69
-        alterid: 1
+        alterId: 1
       - id: 78001f60-f9f8-4ec5-a3ce-121f7bb4aa0f
-        alterid: 2
+        alterId: 2
 
 # Client config.json vars
 outbounds:
@@ -20,4 +20,3 @@ outbounds:
 
 pihole:
   passwd: "PIHOLE_PASS)))"
-  
