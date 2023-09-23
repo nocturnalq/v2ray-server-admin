@@ -18,6 +18,7 @@ services:
       - "./logs:/var/log/v2ray/"
     networks:
       - v2yay-net
+    command: run
 
   pihole:
     container_name: pihole-server
