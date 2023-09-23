@@ -30,13 +30,20 @@
     - { src: server-config.json.j2 , dest: server-config.json }
     - { src: pihole.env.j2 , dest: pihole.env }
   
+- debug:
+    var: inbounds.settings.clients
+
+- debug:
+    var: item
+  with_items: "{{ inbounds.settings.clients }}"
+
 - name: Template client-config files
   template:
     src: client-config.json.j2
     dest: "{{ v2ray_dir }}/client-config-{{ item.alterId }}.json"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-  loop: "{{ inbounds.settings.clients }}"
+  with_items: "{{ inbounds.settings.clients }}"
 
 - name: Fetch client-config files
   fetch:
