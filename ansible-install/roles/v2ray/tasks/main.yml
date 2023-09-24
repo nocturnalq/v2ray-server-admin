@@ -43,7 +43,7 @@
     src: "{{ v2ray_dir }}/client-config-{{ item.1 }}.json"
     dest: fetched/{{ inventory_hostname }}/
     flat: true
-  loop: "{{ inbounds.settings.clients | zip(0-(inbounds.settings.clients|length)) | list }}"
+  loop: "{{ inbounds.settings.clients | zip(range(0-inbounds.settings.clients|length)) | list }}"
   # with_items: "{{ inbounds.settings.clients }}"
 
 - name: "Update image of v2ray-server"
