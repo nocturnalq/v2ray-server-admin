@@ -36,14 +36,14 @@
     dest: "{{ v2ray_dir }}/client-config-{{ item.1 }}.json"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-  loop: "{{ inbounds.settings.clients | zip(0-(inbounds.settings.clients|length)) | list }}"
+  loop: "{{ inbounds.settings.clients | zip(range(inbounds.settings.clients|length)) | list }}"
 
 - name: Fetch client-config files
   fetch:
     src: "{{ v2ray_dir }}/client-config-{{ item.1 }}.json"
     dest: fetched/{{ inventory_hostname }}/
     flat: true
-  loop: "{{ inbounds.settings.clients | zip(range(0-inbounds.settings.clients|length)) | list }}"
+  loop: "{{ inbounds.settings.clients | zip(range(inbounds.settings.clients|length)) | list }}"
   # with_items: "{{ inbounds.settings.clients }}"
 
 - name: "Update image of v2ray-server"
