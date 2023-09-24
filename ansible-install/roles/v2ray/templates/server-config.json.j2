@@ -12,24 +12,10 @@
         "clients": [
           {% for client in inbounds.settings.clients %}
           {
-            "id": "{{ client.id }}",
-            "alterId": "{{ client.alterId }}",
+            "id": "{{ client.id }}"
           }{{ "," if not loop.last else "" }}
           {% endfor %}
-        ],
-        "default": {
-          "level": 0,
-          "alterId": 4
-        }
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/"
-        }
-      },
-      "mux": {
-        "enabled": true
+        ]
       }
     }
   ],

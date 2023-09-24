@@ -33,17 +33,18 @@
 - name: Template client-config files
   template:
     src: client-config.json.j2
-    dest: "{{ v2ray_dir }}/client-config-{{ item.alterId }}.json"
+    dest: "{{ v2ray_dir }}/client-config-{{ item.1 }}.json"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
-  with_items: "{{ inbounds.settings.clients }}"
+  loop: "{{ inbounds.settings.clients | zip(1-(inbounds.settings.clients|length)) | list }}"
 
 - name: Fetch client-config files
   fetch:
-    src: "{{ v2ray_dir }}/client-config-{{ item.alterId }}.json"
+    src: "{{ v2ray_dir }}/client-config-{{ item.1 }}.json"
     dest: fetched/{{ inventory_hostname }}/
     flat: true
-  with_items: "{{ inbounds.settings.clients }}"
+  loop: "{{ inbounds.settings.clients | zip(1-(inbounds.settings.clients|length)) | list }}"
+  # with_items: "{{ inbounds.settings.clients }}"
 
 - name: "Update image of v2ray-server"
   command:

@@ -8,11 +8,8 @@ inbounds:
   settings:
     clients:
       - id: 27848739-7e62-4138-9fd3-098a63964b6b
-        alterId: 4
       - id: 9da19484-45db-4b21-9535-79ed36862d69
-        alterId: 4
       - id: 78001f60-f9f8-4ec5-a3ce-121f7bb4aa0f
-        alterId: 4
 
 # Client config.json vars
 outbounds:

@@ -15,9 +15,7 @@
           "port": {{ inbounds.port }},
           "users": [
             {
-              "id": "{{ item.id }}",
-              "alterId": "{{ item.alterId }}",
-              "security": "auto"
+              "id": "{{ item.0.id }}"
             }
         ]
       }
