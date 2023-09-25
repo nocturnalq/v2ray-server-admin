@@ -30,6 +30,7 @@
   loop:
     - { src: docker-compose.yml.j2 , dest: docker-compose.yml }
     - { src: server-config.json.j2 , dest: server-config.json }
+    - { src: wireguard.env.j2 , dest: wireguard.env }
     # - { src: pihole.env.j2 , dest: pihole.env }
 
 - name: Template adguard config
