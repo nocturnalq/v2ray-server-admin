@@ -40,7 +40,7 @@ services:
       - ./wg/modules:/lib/modules
       - ./wg/src:/usr/src
     ports:
-      - 51815:51815/udp
+      - "{{ wireguard.port }}:{{ wireguard.port }}/udp"
     dns:
       - 10.11.10.5
     sysctls:

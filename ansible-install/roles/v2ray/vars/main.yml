@@ -1,6 +1,17 @@
 v2ray_version: latest
 v2ray_dir: /var/v2ray
 
+timezone: Europe/Amsterdam
+
+wireguard:
+  port: 51815
+
+# pihole:
+  # passwd: "PIHOLE_PASS"
+
+adguardhome:
+  loadconfig: true
+
 # Server config.json vars
 inbounds:
   port: 10086
@@ -15,5 +26,3 @@ inbounds:
 outbounds:
   protocol: freedom
 
-pihole:
-  passwd: "PIHOLE_PASSword"
