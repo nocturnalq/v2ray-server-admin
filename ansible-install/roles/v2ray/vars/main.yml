@@ -16,4 +16,4 @@ outbounds:
   protocol: freedom
 
 pihole:
-  passwd: "PIHOLE_PASS)))"
+  passwd: "PIHOLE_PASSword"
