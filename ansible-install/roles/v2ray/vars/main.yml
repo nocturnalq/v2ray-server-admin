@@ -4,7 +4,7 @@ v2ray_dir: /var/v2ray
 timezone: Europe/Amsterdam
 
 wireguard:
-  port: 51815
+  port: 51820
 
 # pihole:
   # passwd: "PIHOLE_PASS"
