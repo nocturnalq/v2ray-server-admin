@@ -3,6 +3,7 @@
     chdir: "{{ v2ray_dir }}"
     cmd: docker compose down
   register: output
+  ignore_errors: true
 
 - debug:
     var: output
