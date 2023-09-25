@@ -19,7 +19,7 @@ services:
       - "./server-config.json:/etc/v2ray/config.json"
       - "./logs:/var/log/v2ray/"
     networks:
-      v2ray-net:
+      v2ray_net:
         ipv4_address: 10.11.10.6
     command: run -c /etc/v2ray/config.json
     dns:
@@ -46,28 +46,51 @@ services:
   #     - net.ipv4.conf.all.src_valid_mark=1
   #   restart: unless-stopped
   #   networks:
-  #     v2ray-net:
+  #     v2ray_net:
   #       ipv4_address: 10.11.10.7
-  pihole:
-    container_name: ph-service
-    image: pihole/pihole:latest
-    expose:
-      - 53
-      - 67
-      - 80
-      - 443
-    env_file:
-      - ./pihole.env
-    volumes:
-      - ./ph/etc.pihole:/etc/pihole/
-      - ./ph/etc.dnsmasq.d/:/etc/dnsmasq.d/
+
+  # pihole:
+  #   container_name: ph-service
+  #   image: pihole/pihole:latest
+  #   expose:
+  #     - 53
+  #     - 67
+  #     - 80
+  #     - 443
+  #   env_file:
+  #     - ./pihole.env
+  #   volumes:
+  #     - ./ph/etc.pihole:/etc/pihole/
+  #     - ./ph/etc.dnsmasq.d/:/etc/dnsmasq.d/
+  #   restart: unless-stopped
+  #   networks:
+  #     v2ray_net:
+  #       ipv4_address: 10.11.10.5
+
+  adguardhome:
+    container_name: adguardhome
+    image: adguard/adguardhome
     restart: unless-stopped
     networks:
-      v2ray-net:
-        ipv4_address: 10.11.10.5
+      v2ray_net:
+        ipv4_address: 10.11.10.5 # IP address inside the defined range
+    ports:
+      - 53:53/udp
+      - 67:67/udp 
+      - 68:68/tcp 
+      - 68:68/udp 
+      - 80:80/tcp 
+      - 443:443/tcp 
+      - 853:853/tcp 
+      - 3000:3000/tcp 
+    volumes:
+      - ./adguardhome/conf:/opt/adguardhome/conf
+      - ./adguardhome/work:/opt/adguardhome/work
+      # - ./shared/certs/example.com:/certs # optional: if you have your own SSL certs
+
 
 networks:
-  v2ray-net:
+  v2ray_net:
     driver: bridge
     ipam:
      config:
