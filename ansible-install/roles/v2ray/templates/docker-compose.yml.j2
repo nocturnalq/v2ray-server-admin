@@ -24,30 +24,31 @@ services:
     command: run -c /etc/v2ray/config.json
     dns:
       - 10.11.10.5
-  # wireguard:
-  #   image: linuxserver/wireguard
-  #   container_name: wg-service
-  #   depends_on:
-  #     - pihole
-  #   cap_add:
-  #     - NET_ADMIN
-  #     - SYS_MODULE
-  #   env_file:
-  #     - ./wireguard.env
-  #   volumes:
-  #     - ./wg/config:/config
-  #     - ./wg/modules:/lib/modules
-  #     - ./wg/src:/usr/src
-  #   ports:
-  #     - 51820:51820/udp
-  #   dns:
-  #     - 10.11.10.5
-  #   sysctls:
-  #     - net.ipv4.conf.all.src_valid_mark=1
-  #   restart: unless-stopped
-  #   networks:
-  #     v2ray_net:
-  #       ipv4_address: 10.11.10.7
+
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wg-service
+    depends_on:
+      - adguardhome
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    env_file:
+      - ./wireguard.env
+    volumes:
+      - ./wg/config:/config
+      - ./wg/modules:/lib/modules
+      - ./wg/src:/usr/src
+    ports:
+      - 51815:51815/udp
+    dns:
+      - 10.11.10.5
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
+    networks:
+      v2ray_net:
+        ipv4_address: 10.11.10.7
 
   # pihole:
   #   container_name: ph-service
@@ -74,20 +75,19 @@ services:
     networks:
       v2ray_net:
         ipv4_address: 10.11.10.5 # IP address inside the defined range
-    ports:
-      - 53:53/udp
-      - 67:67/udp 
-      - 68:68/tcp 
-      - 68:68/udp 
-      - 80:80/tcp 
-      - 443:443/tcp 
-      - 853:853/tcp 
-      - 3000:3000/tcp 
     volumes:
       - ./adguardhome/conf:/opt/adguardhome/conf
       - ./adguardhome/work:/opt/adguardhome/work
       # - ./shared/certs/example.com:/certs # optional: if you have your own SSL certs
-
+    # ports:
+    #   - 53:53/udp
+    #   - 67:67/udp 
+    #   - 68:68/tcp 
+    #   - 68:68/udp 
+    #   - 80:80/tcp 
+    #   - 443:443/tcp 
+    #   - 853:853/tcp 
+    #   - 3000:3000/tcp 
 
 networks:
   v2ray_net:

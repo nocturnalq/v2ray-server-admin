@@ -14,11 +14,12 @@
 
 - name: Create directory for v2ray
   file:
-    path: "{{ v2ray_dir }}"
+    path: "{{ v2ray_dir }}/adguardhome/conf"
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: '0755'
+    recurce: true
 
 - name: Template config files
   template:
@@ -29,8 +30,16 @@
   loop:
     - { src: docker-compose.yml.j2 , dest: docker-compose.yml }
     - { src: server-config.json.j2 , dest: server-config.json }
-    - { src: pihole.env.j2 , dest: pihole.env }
-  
+    # - { src: pihole.env.j2 , dest: pihole.env }
+
+- name: Template adguard config
+  copy:
+    src: AdGuardHome.yaml
+    dest: "{{ v2ray_dir }}/adguardhome/conf/AdGuardHome.yaml"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
 - name: Template client-config files
   template:
     src: client-config.json.j2
