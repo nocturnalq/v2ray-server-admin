@@ -25,30 +25,30 @@ services:
     dns:
       - 10.11.10.5
 
-  wireguard:
-    image: linuxserver/wireguard
-    container_name: wg-service
-    depends_on:
-      - adguardhome
-    cap_add:
-      - NET_ADMIN
-      - SYS_MODULE
-    env_file:
-      - ./wireguard.env
-    volumes:
-      - ./wg/config:/config
-      - ./wg/modules:/lib/modules
-      - ./wg/src:/usr/src
-    ports:
-      - "{{ wireguard.port }}:{{ wireguard.port }}/udp"
-    dns:
-      - 10.11.10.5
-    sysctls:
-      - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
-    networks:
-      v2ray_net:
-        ipv4_address: 10.11.11.1
+#  wireguard:
+#    image: linuxserver/wireguard
+#    container_name: wg-service
+#    depends_on:
+#      - adguardhome
+#    cap_add:
+#      - NET_ADMIN
+#      - SYS_MODULE
+#    env_file:
+#      - ./wireguard.env
+#    volumes:
+#      - ./wg/config:/config
+#      - ./wg/modules:/lib/modules
+#      - ./wg/src:/usr/src
+#    ports:
+#      - "{{ wireguard.port }}:{{ wireguard.port }}/udp"
+#    dns:
+#      - 10.11.10.5
+#    sysctls:
+#      - net.ipv4.conf.all.src_valid_mark=1
+#    restart: unless-stopped
+#    networks:
+#      v2ray_net:
+#        ipv4_address: 10.11.11.1
 
   # pihole:
   #   container_name: ph-service
