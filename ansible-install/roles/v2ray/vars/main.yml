@@ -10,13 +10,8 @@ inbounds:
   protocol: vmess
   settings:
     clients: #free from #4
-      - id: 27848739-7e62-4138-9fd3-098a63964b6b #
-      - id: 9da19484-45db-4b21-9535-79ed36862d69 #
-      - id: 78001f60-f9f8-4ec5-a3ce-121f7bb4aa0f #
-      - id: c59bf618-f776-401f-bad0-a4eb23c8ea86
-      - id: 46abb7af-d041-4a84-aa2c-2261e0eff7f3
-      - id: 08dcf228-cea2-4eb5-8d5c-8e3e167d412b
-      - id: 07aa806a-e77b-452d-b03d-47226bbd3fb8
+      - id: id 1 in uuid 4 version
+      - id: id 2 in uuid 4 version
 # Client config.json vars
 outbounds:
   protocol: freedom
